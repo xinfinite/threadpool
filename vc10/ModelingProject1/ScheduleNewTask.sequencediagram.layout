@@ -105,14 +105,14 @@
       </relativeChildShapes>
     </lifelineShape>
     <lifelineShape Id="2629e263-58dc-449c-a3ec-bccd162715aa" absoluteBounds="8.6692708333333339, 1, 0.15, 17.227083333333347" visible="true" visualStyleMode="Modified">
-      <lifelineMoniker Id="17f093ac-c62e-46ad-a209-bda70d038174" LastKnownName="WorkerScheduler" />
+      <lifelineMoniker Id="17f093ac-c62e-46ad-a209-bda70d038174" LastKnownName="WorkerManager" />
       <relativeChildShapes>
-        <umlLifelineHeadShape Id="dde3f21b-a970-4fb2-9efb-2cd807e928a6" absoluteBounds="8.1616594405969, 0.6, 1.1652227854728698, 0.4" customColor="White" visualStyleMode="Modified">
-          <lifelineMoniker Id="17f093ac-c62e-46ad-a209-bda70d038174" LastKnownName="WorkerScheduler" />
+        <umlLifelineHeadShape Id="dde3f21b-a970-4fb2-9efb-2cd807e928a6" absoluteBounds="8.1960561486085268, 0.6, 1.0964293694496154, 0.4" customColor="White" visualStyleMode="Modified">
+          <lifelineMoniker Id="17f093ac-c62e-46ad-a209-bda70d038174" LastKnownName="WorkerManager" />
           <relativeChildShapes />
         </umlLifelineHeadShape>
         <lifelineHoverShape Id="322c91e4-94ad-40f1-a101-e95603225260" absoluteBounds="8.6692708333333339, 1, 0, 17.25">
-          <lifelineMoniker Id="17f093ac-c62e-46ad-a209-bda70d038174" LastKnownName="WorkerScheduler" />
+          <lifelineMoniker Id="17f093ac-c62e-46ad-a209-bda70d038174" LastKnownName="WorkerManager" />
         </lifelineHoverShape>
         <umlExecutionSpecificationShape Id="2d788e56-722c-4168-b43d-e5c9af8574f0" absoluteBounds="8.6692708333333339, 1.9375, 0.15, 0.55" customColor="184, 204, 215" visualStyleMode="Modified">
           <behaviorExecutionSpecificationMoniker Id="256a34b8-5b1b-4e4e-91ae-78396d4e1318" LastKnownName="BehaviorExecutionSpecification19" />
