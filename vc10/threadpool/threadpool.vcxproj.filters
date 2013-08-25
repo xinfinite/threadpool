@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="boost">
+      <UniqueIdentifier>{b3cf3e0f-ed16-46ba-94ca-16ea2bae3cbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boost\threadpool">
+      <UniqueIdentifier>{187af3c7-8ccc-48f3-98a2-7a16a088dbda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boost\threadpool\detail">
+      <UniqueIdentifier>{015ad519-2ef9-4172-98af-8445025c0365}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\boost\threadpool.hpp">
+      <Filter>boost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\boost\threadpool\task_adaptors.hpp">
+      <Filter>boost\threadpool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\boost\threadpool\future.hpp">
+      <Filter>boost\threadpool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\boost\threadpool\pool.hpp">
+      <Filter>boost\threadpool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\boost\threadpool\pool_adaptors.hpp">
+      <Filter>boost\threadpool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\boost\threadpool\scheduling_policies.hpp">
+      <Filter>boost\threadpool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\boost\threadpool\shutdown_policies.hpp">
+      <Filter>boost\threadpool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\boost\threadpool\size_policies.hpp">
+      <Filter>boost\threadpool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\boost\threadpool\detail\worker_thread.hpp">
+      <Filter>boost\threadpool\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\boost\threadpool\detail\future.hpp">
+      <Filter>boost\threadpool\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\boost\threadpool\detail\locking_ptr.hpp">
+      <Filter>boost\threadpool\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\boost\threadpool\detail\pool_core.hpp">
+      <Filter>boost\threadpool\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\boost\threadpool\detail\scope_guard.hpp">
+      <Filter>boost\threadpool\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\boost\threadpool\detail\worker_manager.hpp">
+      <Filter>boost\threadpool\detail</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="threadpool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
