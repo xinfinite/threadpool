@@ -76,6 +76,7 @@ namespace boost { namespace threadpool { namespace detail
   : public enable_shared_from_this< pool_core<Task, SchedulingPolicy,SizePolicy, SizePolicyController, ShutdownPolicy > > 
   , private noncopyable
   {
+	  typedef recursive_mutex pool_mutex;
 
   public: // Type definitions
     typedef Task task_type;                                 //!< Indicates the task's type.
@@ -123,8 +124,9 @@ namespace boost { namespace threadpool { namespace detail
 
   private: // The following members are accessed only by _one_ thread at the same time:
     scheduler_type  m_scheduler;
-    scoped_ptr<size_policy_type> m_size_policy; // is never null
-    
+	//no ptr need here
+    //scoped_ptr<size_policy_type> m_size_policy; // is never null
+    size_policy_type m_size_policy;
     bool  m_terminate_all_workers;								// Indicates if termination of all workers was triggered.
     std::vector<shared_ptr<worker_type> > m_terminated_workers; // List of workers which are terminated but not fully destructed.
     
@@ -142,7 +144,7 @@ namespace boost { namespace threadpool { namespace detail
       , m_terminate_all_workers(false)
     {
       //pool_type volatile & self_ref = *this;
-      m_size_policy.reset(new size_policy_type());
+      //m_size_policy.reset(new size_policy_type());
 
       m_scheduler.clear();
     }
@@ -153,14 +155,34 @@ namespace boost { namespace threadpool { namespace detail
     {
     }
 
+	void handle_sizing_decision(size_policy_type::sizing_decision i){
+		while (i != 0)
+		{
+			if( i > 0){
+				try
+				{
+					 worker_thread<pool_type>::create_and_attach(shared_from_this());
+				}
+				catch (...)
+				{
+					
+				}				
+			}else{
+				//how ?
+			}
+		}
+	};
+
     /*! Gets the size controller which manages the number of threads in the pool. 
     * \return The size controller.
     * \see SizePolicy
     */
-    size_controller_type size_controller()
-    {
-      return size_controller_type(*m_size_policy, this->shared_from_this());
-    }
+	
+	//do not expose size_policy
+	/*size_controller_type size_controller()
+	{
+	return size_controller_type(*m_size_policy, this->shared_from_this());
+	}*/
 
     /*! Gets the number of threads in the pool.
     * \return The number of threads.
@@ -181,18 +203,21 @@ namespace boost { namespace threadpool { namespace detail
     * \return true, if the task could be scheduled and false otherwise. 
     */  
     bool schedule(task_type const & task) volatile
-    {	
-      locking_ptr<pool_type, recursive_mutex> lockedThis(*this, m_monitor); 
+    {
+		pool_mutex::scoped_lock lock(m_monitor);
+		//locking_ptr<pool_type, recursive_mutex> lockedThis(*this, m_monitor); 
       
-      if(lockedThis->m_scheduler.push(task))
-      {
-        lockedThis->m_task_or_terminate_workers_event.notify_one();
-        return true;
-      }
-      else
-      {
-        return false;
-      }
+		if(m_scheduler.push(task))
+		{			
+			handle_sizing_decision(m_size_policy->on_task_schedule());
+			
+			m_task_or_terminate_workers_event.notify_one();
+			return true;
+		}
+		else
+		{
+		return false;
+		}
     }	
 
 
@@ -201,7 +226,8 @@ namespace boost { namespace threadpool { namespace detail
     */  
     size_t active() const volatile
     {
-      return m_active_worker_count;
+      //return m_active_worker_count;
+		return m_size_policy.count_working_worker();
     }
 
 
@@ -210,8 +236,9 @@ namespace boost { namespace threadpool { namespace detail
     */  
     size_t pending() const volatile
     {
-      locking_ptr<const pool_type, recursive_mutex> lockedThis(*this, m_monitor);
-      return lockedThis->m_scheduler.size();
+      //locking_ptr<const pool_type, recursive_mutex> lockedThis(*this, m_monitor);
+      //return lockedThis->m_scheduler.size();
+		return m_size_policy.count_pending_task();
     }
 
 

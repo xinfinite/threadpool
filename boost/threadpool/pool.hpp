@@ -40,7 +40,7 @@
 namespace boost { namespace threadpool
 {
 
-
+	
 
   /*! \brief Thread pool. 
   *
