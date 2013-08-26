@@ -75,12 +75,6 @@
     <ClInclude Include="..\..\boost\threadpool\detail\worker_sizing_policy.hpp">
       <Filter>boost\threadpool\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\boost\threadpool\task_states.hpp">
-      <Filter>boost\threadpool</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\boost\threadpool\worker_states.hpp">
-      <Filter>boost\threadpool</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

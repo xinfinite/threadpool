@@ -33,58 +33,65 @@ namespace boost { namespace threadpool { namespace detail {
 		sizing_decision on_task_schedule(){
 			mutex::scoped_lock lock(task_mutex);
 			task_pending++;
-			return make_decision();
+			return on_task_event();
 		};
 		sizing_decision on_task_run(){
 			mutex::scoped_lock lock(task_mutex);
 			task_pending--;
 			task_running++;
-			return make_decision();
+			return on_task_event();
 		};
 		sizing_decision on_task_finish(){
 			mutex::scoped_lock lock(task_mutex);			
 			task_running--;
-			return make_decision();
+			return on_task_event();
 		};
 		sizing_decision on_task_cancel(){
 			mutex::scoped_lock lock(task_mutex);
 			task_pending--;
 			
-			return make_decision();
+			return on_task_event();
 		};	
 		
-		//sizing_decision on_worker_spawn(){
-		//	mutex::scoped_lock lock(worker_mutex);
-		//	worker_spawned++;
-		//	return make_decision();
-		//};
-
 		sizing_decision on_worker_ready(){
 			mutex::scoped_lock lock(worker_mutex);
 			worker_idle++;
-			return make_decision();
+			return on_worker_event();
 		};
-		sizing_decision on_worker_finished(){
+		sizing_decision on_worker_idle(){
 			mutex::scoped_lock lock(worker_mutex);
 			worker_idle++;
 			worker_working--;
-			return make_decision();
+			return on_worker_event();
 		};
 
 		sizing_decision on_worker_working(){
 			mutex::scoped_lock lock(worker_mutex);
 			worker_idle--;
 			worker_working++;
-			return make_decision();
+			return on_worker_event();			
 		};
 
-		//sizing_decision on_worker_exit(){
-		//	mutex::scoped_lock lock(worker_mutex);
-		//	worker_spawned--;
-		//	return make_decision();
-		//};
+		sizing_decision on_worker_spawn(){
+			mutex::scoped_lock lock(worker_mutex);
+			worker_spawned++;
+			return on_worker_event();			
+		};
 
-		virtual sizing_decision make_decision() = 0;
+		sizing_decision on_worker_exit_from_working(){
+			mutex::scoped_lock lock(worker_mutex);
+			worker_working--;
+			return on_worker_event();			
+		};
+
+		sizing_decision on_worker_exit_from_idle(){
+			mutex::scoped_lock lock(worker_mutex);
+			worker_idle--;
+			return on_worker_event();			
+		};
+		
+		virtual sizing_decision on_task_event() = 0;
+		virtual sizing_decision on_worker_event() = 0;
 
 		int count_working_worker(){
 			mutex::scoped_lock lock(worker_mutex);
@@ -118,7 +125,10 @@ namespace boost { namespace threadpool { namespace detail {
 	template<int N>
 	class FixedNumberSizingPolicy : private SizingPolicy{
 	public:
-		sizing_decision make_decision(){			
+		sizing_decision on_task_event(){
+			return 0;
+		};
+		sizing_decision on_worker_event(){			
 			if(worker_spawned < N){
 				return 1;
 			}else if(worker_spawned > N){
@@ -131,7 +141,10 @@ namespace boost { namespace threadpool { namespace detail {
 	template< int Min , int Max >
 	class RangeSizingPolicy : private SizingPolicy{
 	public:
-		sizing_decision make_decision(){			
+		sizing_decision on_task_event(){
+			return 0;
+		};
+		sizing_decision on_worker_event(){			
 			if(worker_spawned < Min){
 				return 1;
 			}else if(worker_spawned > Max){

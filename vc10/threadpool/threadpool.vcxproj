@@ -90,8 +90,6 @@
     <ClInclude Include="..\..\boost\threadpool\shutdown_policies.hpp" />
     <ClInclude Include="..\..\boost\threadpool\size_policies.hpp" />
     <ClInclude Include="..\..\boost\threadpool\task_adaptors.hpp" />
-    <ClInclude Include="..\..\boost\threadpool\task_states.hpp" />
-    <ClInclude Include="..\..\boost\threadpool\worker_states.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
