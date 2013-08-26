@@ -4,10 +4,18 @@ namespace boost { namespace threadpool { namespace detail {
 	
 	typedef int sizing_decision;
 	
-	template< int N >
+	
+	
 	class SizingPolicy{
+	protected:
 		mutex worker_mutex;
 		int worker_spawned;		
+		int worker_idle;
+
+		mutex task_mutex;
+		int task_pending;
+		int task_running;
+
 	public:
 		SizingPolicy():worker_spawned(0){
 			
@@ -15,59 +23,80 @@ namespace boost { namespace threadpool { namespace detail {
 		virtual ~SizingPolicy(){
 		
 		};						
-		sizing_decision on_task_state(const task_state& last_state, const task_state& state){
-			return 0;
+		sizing_decision on_task_schedule(){
+			mutex::scoped_lock lock(task_mutex);
+			task_pending++;
+			return make_decision();
 		};
-		sizing_decision on_worker_state(const worker_state& last_state , const worker_state & state){
-			if(last_state == worker_null && state == worker_spawn){
-				mutex::scoped_lock lock(worker_mutex);
-				worker_spawned++;
-			}
-			if(state == worker_exit){
-				mutex::scoped_lock lock(worker_mutex);
-				worker_spawned--;
-			}
+		sizing_decision on_task_run(){
+			mutex::scoped_lock lock(task_mutex);
+			task_pending--;
+			task_running++;
+			return make_decision();
+		};
+		sizing_decision on_task_finish(){
+			mutex::scoped_lock lock(task_mutex);			
+			task_running--;
+			return make_decision();
+		};
+		sizing_decision on_task_cancel(){
+			mutex::scoped_lock lock(task_mutex);
+			task_pending--;
+			
+			return make_decision();
+		};	
+		
+		sizing_decision on_worker_spawn(){
+			mutex::scoped_lock lock(worker_mutex);
+			worker_spawned++;
+			return make_decision();
+		};
+
+		sizing_decision on_worker_idle(){
+			mutex::scoped_lock lock(worker_mutex);
+			worker_idle++;
+			return make_decision();
+		};
+
+		sizing_decision on_worker_working(){
+			mutex::scoped_lock lock(worker_mutex);
+			worker_idle--;
+			return make_decision();
+		};
+
+		sizing_decision on_worker_exit(){
+			mutex::scoped_lock lock(worker_mutex);
+			worker_spawned--;
+			return make_decision();
+		};
+
+		virtual sizing_decision make_decision() = 0;
+	};
+
+	template<int N>
+	class FixedNumberSizingPolicy : private SizingPolicy{
+	public:
+		sizing_decision make_decision(){			
 			if(worker_spawned < N){
 				return 1;
 			}else if(worker_spawned > N){
 				return -1;
 			}
 			return 0;
-		};				
+		};
 	};
 	
 	template< int Min , int Max >
-	class RangeSizingPolicy{
-		mutex worker_mutex;
-		int worker_spawned;		
+	class RangeSizingPolicy : private SizingPolicy{
 	public:
-		RangeSizingPolicy():worker_spawned(0),worker_idle(0){
-			
-		};
-		virtual ~RangeSizingPolicy(){
-		
-		};						
-		sizing_decision on_task_state(const task_state& last_ts, const task_state& ts){
-			return 0;
-		};
-		sizing_decision on_worker_state(const worker_state& last_state , const worker_state & state){
-			if(last_state == worker_null && state == worker_spawn){
-				mutex::scoped_lock lock(worker_mutex);
-				worker_spawned++;
-			}
-			if(state == worker_exit){
-				mutex::scoped_lock lock(worker_mutex);
-				worker_spawned--;
-			}
-			
+		sizing_decision make_decision(){			
 			if(worker_spawned < Min){
 				return 1;
 			}else if(worker_spawned > Max){
 				return -1;
 			}
-			
 			return 0;
-		};	
+		};
 	}
 	
 	

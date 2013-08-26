@@ -65,15 +65,15 @@ namespace boost { namespace threadpool { namespace detail
   * \see Scheduling policies: fifo_scheduler, lifo_scheduler, prio_scheduler
   */ 
   template <
-    typename Task, 
-
+    typename Task, 	
     template <typename> class SchedulingPolicy,
-    template <typename> class SizePolicy,
+    //template <typename> class SizePolicy,
+	class SizePolicy,
     template <typename> class SizePolicyController,
     template <typename> class ShutdownPolicy
   > 
   class pool_core
-  : public enable_shared_from_this< pool_core<Task, SchedulingPolicy, SizePolicy, SizePolicyController, ShutdownPolicy > > 
+  : public enable_shared_from_this< pool_core<Task, SchedulingPolicy,SizePolicy, SizePolicyController, ShutdownPolicy > > 
   , private noncopyable
   {
 
@@ -85,7 +85,8 @@ namespace boost { namespace threadpool { namespace detail
                       SizePolicy,
                       SizePolicyController,
                       ShutdownPolicy > pool_type;           //!< Indicates the thread pool's type.
-    typedef SizePolicy<pool_type> size_policy_type;         //!< Indicates the sizer's type.
+    //typedef SizePolicy<pool_type> size_policy_type;         //!< Indicates the sizer's type.
+	typedef SizePolicy size_policy_type;
     //typedef typename size_policy_type::size_controller size_controller_type;
 
     typedef SizePolicyController<pool_type> size_controller_type;
@@ -140,8 +141,8 @@ namespace boost { namespace threadpool { namespace detail
       , m_active_worker_count(0)
       , m_terminate_all_workers(false)
     {
-      pool_type volatile & self_ref = *this;
-      m_size_policy.reset(new size_policy_type(self_ref));
+      //pool_type volatile & self_ref = *this;
+      m_size_policy.reset(new size_policy_type());
 
       m_scheduler.clear();
     }

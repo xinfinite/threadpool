@@ -81,9 +81,7 @@
     <ClInclude Include="..\..\boost\threadpool\detail\locking_ptr.hpp" />
     <ClInclude Include="..\..\boost\threadpool\detail\pool_core.hpp" />
     <ClInclude Include="..\..\boost\threadpool\detail\scope_guard.hpp" />
-    <ClInclude Include="..\..\boost\threadpool\detail\task_states.hpp" />
     <ClInclude Include="..\..\boost\threadpool\detail\worker_sizing_policy.hpp" />
-    <ClInclude Include="..\..\boost\threadpool\detail\worker_states.hpp" />
     <ClInclude Include="..\..\boost\threadpool\detail\worker_thread.hpp" />
     <ClInclude Include="..\..\boost\threadpool\future.hpp" />
     <ClInclude Include="..\..\boost\threadpool\pool.hpp" />
@@ -92,6 +90,8 @@
     <ClInclude Include="..\..\boost\threadpool\shutdown_policies.hpp" />
     <ClInclude Include="..\..\boost\threadpool\size_policies.hpp" />
     <ClInclude Include="..\..\boost\threadpool\task_adaptors.hpp" />
+    <ClInclude Include="..\..\boost\threadpool\task_states.hpp" />
+    <ClInclude Include="..\..\boost\threadpool\worker_states.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>

@@ -161,7 +161,6 @@ namespace boost { namespace threadpool
 
   }; // looped_task_func
 
-
 } } // namespace boost::threadpool
 
 #endif // THREADPOOL_TASK_ADAPTERS_HPP_INCLUDED
