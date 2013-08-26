@@ -39,7 +39,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
+    <IncludePath>..\..\;$(BOOST_HOME);$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -81,7 +81,9 @@
     <ClInclude Include="..\..\boost\threadpool\detail\locking_ptr.hpp" />
     <ClInclude Include="..\..\boost\threadpool\detail\pool_core.hpp" />
     <ClInclude Include="..\..\boost\threadpool\detail\scope_guard.hpp" />
-    <ClInclude Include="..\..\boost\threadpool\detail\worker_manager.hpp" />
+    <ClInclude Include="..\..\boost\threadpool\detail\task_states.hpp" />
+    <ClInclude Include="..\..\boost\threadpool\detail\worker_sizing_policy.hpp" />
+    <ClInclude Include="..\..\boost\threadpool\detail\worker_states.hpp" />
     <ClInclude Include="..\..\boost\threadpool\detail\worker_thread.hpp" />
     <ClInclude Include="..\..\boost\threadpool\future.hpp" />
     <ClInclude Include="..\..\boost\threadpool\pool.hpp" />

@@ -72,7 +72,13 @@
     <ClInclude Include="..\..\boost\threadpool\detail\scope_guard.hpp">
       <Filter>boost\threadpool\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\boost\threadpool\detail\worker_manager.hpp">
+    <ClInclude Include="..\..\boost\threadpool\detail\task_states.hpp">
+      <Filter>boost\threadpool\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\boost\threadpool\detail\worker_states.hpp">
+      <Filter>boost\threadpool\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\boost\threadpool\detail\worker_sizing_policy.hpp">
       <Filter>boost\threadpool\detail</Filter>
     </ClInclude>
   </ItemGroup>
