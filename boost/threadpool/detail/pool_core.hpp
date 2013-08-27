@@ -39,6 +39,8 @@
 #include <boost/static_assert.hpp>
 #include <boost/type_traits.hpp>
 
+#include <boost/asio.hpp>
+
 #include <vector>
 
 
@@ -120,7 +122,7 @@ namespace boost { namespace threadpool { namespace detail
     volatile size_t m_target_worker_count;	
     volatile size_t m_active_worker_count;
       
-
+	asio::io_service async_io_;
 
   private: // The following members are accessed only by _one_ thread at the same time:
     scheduler_type  m_scheduler;
@@ -207,17 +209,19 @@ namespace boost { namespace threadpool { namespace detail
 		pool_mutex::scoped_lock lock(m_monitor);
 		//locking_ptr<pool_type, recursive_mutex> lockedThis(*this, m_monitor); 
       
-		if(m_scheduler.push(task))
+		async_io_.post(counted_task_wrapper<task_type>(task));
+
+		/*if(m_scheduler.push(task))
 		{			
-			handle_sizing_decision(m_size_policy->on_task_schedule());
-			
-			m_task_or_terminate_workers_event.notify_one();
-			return true;
+		handle_sizing_decision(m_size_policy->on_task_schedule());
+
+		m_task_or_terminate_workers_event.notify_one();
+		return true;
 		}
 		else
 		{
 		return false;
-		}
+		}*/
     }	
 
 

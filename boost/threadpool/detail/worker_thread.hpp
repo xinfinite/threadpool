@@ -57,7 +57,7 @@ namespace boost { namespace threadpool { namespace detail
     * \param pool Pointer to it's parent pool.
     * \see function create_and_attach
     */
-    worker_thread(shared_ptr<pool_type> const & pool)
+    worker_thread(shared_ptr<pool_type> & pool)
     : m_pool(pool)
     {
       assert(pool);
@@ -79,7 +79,9 @@ namespace boost { namespace threadpool { namespace detail
 	  { 
 		  scope_guard notify_exception(bind(&worker_thread::died_unexpectedly, this));
 
-		  while(m_pool->execute_task()) {}
+		  m_pool->run();
+
+		  //while(m_pool->execute_task()) {}
 
 		  notify_exception.disable();
 		  m_pool->worker_destructed(this->shared_from_this());
@@ -97,13 +99,19 @@ namespace boost { namespace threadpool { namespace detail
 	  /*! Constructs a new worker thread and attaches it to the pool.
 	  * \param pool Pointer to the pool.
 	  */
-	  static void create_and_attach(shared_ptr<pool_type> const & pool)
+	  static void create_and_attach(shared_ptr<pool_type> pool)
 	  {
 		  shared_ptr<worker_thread> worker(new worker_thread(pool));
 		  if(worker)
 		  {
-			  worker->m_thread.reset(new boost::thread(bind(&worker_thread::run, worker)));
+			 worker->m_thread.reset(new boost::thread(bind(&worker_thread::run, worker)));
+			 if(!worker->m_thread){
+				 throw std::bad_alloc("boost::thread");
+			 }
+		  }else{
+			  throw std::bad_alloc("boost::thread_pool::detail::worker_thread");
 		  }
+		  
 	  }
 
   };

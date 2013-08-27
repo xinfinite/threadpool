@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<activityRootModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm10="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm11="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="325b58b9-fc55-4d46-be9e-04863eb1e91b" name="Activity2" linkedPackageId="49ae24f7-452e-42ce-a3ed-8b2cfbf2d6a0" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="11702d75-8d8e-499b-b7c7-3fcf4cde4a88">
+      <profileInstance Id="0deb4d39-5254-4020-a9ad-f8735eee1306" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="92c1197a-ade3-4e25-9a54-6f169d57dee9">
+      <profileInstance Id="eae9c83f-635d-4620-a27f-53e83447104e" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <activityRootModelHasActivity>
+      <activity Id="bb8bf146-70b7-453d-baaf-4318de77378c" name="Activity2" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
+        <elementDefinition Id="81e82891-ad50-4520-a8eb-fcb503a37af5" />
+        <nodes>
+          <opaqueAction Id="7246a392-c2ed-4acf-95e4-151807085a54" name="初始化线程池" isLeaf="false">
+            <elementDefinition Id="d3c7fbc4-d7fb-401c-aa1d-6bf7cc4f24ba" />
+            <flowNodeTargets>
+              <controlFlow Id="ff50433f-7ba5-460b-af11-177972e4af04" isLeaf="false">
+                <opaqueActionMoniker Id="323a5365-fa49-492e-ac09-9d6654c44c16" LastKnownName="创建N个线程" />
+                <elementDefinition Id="2871b3c5-0dfb-4fe0-b079-970945523f98" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="323a5365-fa49-492e-ac09-9d6654c44c16" name="创建N个线程" isLeaf="false">
+            <elementDefinition Id="864e9c79-65da-46d6-91b7-bc9289c3003d" />
+            <flowNodeTargets>
+              <controlFlow Id="b6d1e8db-9d65-4077-a0b2-9dd5391cb774" isLeaf="false">
+                <forkNodeMoniker Id="1a0f1430-a250-4a91-af43-2017a58d2e8c" LastKnownName="Fork1" />
+                <elementDefinition Id="75499994-bbe6-4ce2-813c-ed1f9d8b13d5" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <forkNode Id="1a0f1430-a250-4a91-af43-2017a58d2e8c" name="Fork1" isLeaf="false">
+            <elementDefinition Id="12ea61a1-1302-491f-b15f-db77d07dd0f0" />
+            <flowNodeTargets>
+              <controlFlow Id="649c2807-a120-48be-9450-706fec2fe600" isLeaf="false">
+                <opaqueActionMoniker Id="283b59ab-569e-4f81-9c29-dd8e4abe778f" LastKnownName="io_service::run" />
+                <elementDefinition Id="9ad192a4-9aff-4770-83fd-abd39c8c26fd" />
+              </controlFlow>
+            </flowNodeTargets>
+          </forkNode>
+          <opaqueAction Id="283b59ab-569e-4f81-9c29-dd8e4abe778f" name="io_service::run" isLeaf="false">
+            <elementDefinition Id="873f17f4-984f-49d4-a309-ee644bcc98b1" />
+            <flowNodeTargets>
+              <controlFlow Id="7da006d2-c52e-4993-bef0-a327856a9d72" isLeaf="false">
+                <joinNodeMoniker Id="bd61d24f-a9dd-447a-be39-56ac898e60b2" LastKnownName="Join1" />
+                <elementDefinition Id="776820fe-1c97-405f-a9e7-7f680b53f0ef" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <joinNode Id="bd61d24f-a9dd-447a-be39-56ac898e60b2" name="Join1" isLeaf="false">
+            <elementDefinition Id="bb2cb7e5-1ce1-4b47-bc2d-f7a7a61a0cca" />
+          </joinNode>
+        </nodes>
+      </activity>
+    </activityRootModelHasActivity>
+  </packagedElements>
+  <package Id="49ae24f7-452e-42ce-a3ed-8b2cfbf2d6a0" name="ModelingProject1">
+    <elementDefinition Id="4935cea8-1bc6-4b48-87e2-c01ed2cf28bc" />
+  </package>
+</activityRootModel>

@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<activityRootModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm10="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm11="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="d30f0b45-5bb1-4c81-a7fe-e1badc42c854" name="Activity1" linkedPackageId="810bddf0-0cf3-449f-ac03-2e5784487365" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="b4e15fda-ab1f-4196-a195-9264b6c97bc6">
+      <profileInstance Id="281c06f4-b93b-428a-a2b4-ec658b15e0e1" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="f554b9ee-c310-47ce-916e-79e8ef165ccc">
+      <profileInstance Id="69ce3057-9071-482a-a9dd-bceaa1a017bd" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <activityRootModelHasActivity>
+      <activity Id="a7ea5706-5948-43a7-8e40-9214d5c60836" name="Activity1" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
+        <elementDefinition Id="9abc5ecb-edb3-4a9a-81ac-bc1446652d56" />
+        <nodes>
+          <forkNode Id="1602cafe-c44b-41ec-9198-f43b98651956" name="Fork1" isLeaf="false">
+            <elementDefinition Id="dcf3eaa6-38ba-4231-b2c0-339b680c61a5" />
+            <flowNodeTargets>
+              <controlFlow Id="ac6488fc-d725-4695-9e1b-2795765c4c3f" isLeaf="false">
+                <acceptEventActionMoniker Id="98861bbe-ecbc-4d44-b3aa-3dde082f0482" LastKnownName="等待任务到来" />
+                <elementDefinition Id="6edffe30-0987-4574-ad2b-c3e8efd1ebb8" />
+              </controlFlow>
+            </flowNodeTargets>
+          </forkNode>
+          <opaqueAction Id="c70be809-f278-49fe-b69e-7da1817fd4c9" name="初始化线程池" isLeaf="false">
+            <elementDefinition Id="6b0aa4f4-1968-4a6b-bb05-3c8690d64182" />
+            <flowNodeTargets>
+              <controlFlow Id="0c4dd711-c855-442a-917b-ffaec729e8d3" isLeaf="false">
+                <opaqueActionMoniker Id="283d78ae-b3d8-4493-a9c6-67c8c5b057ac" LastKnownName="启动预设数量的线程" />
+                <elementDefinition Id="daa42361-f604-4ea0-9f20-66da92ee5e2a" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="283d78ae-b3d8-4493-a9c6-67c8c5b057ac" name="启动预设数量的线程" isLeaf="false">
+            <elementDefinition Id="90415243-b83f-4aff-ab78-502f7d22902d" />
+            <flowNodeTargets>
+              <controlFlow Id="44978259-45ff-487f-94d5-c47698ec09e3" isLeaf="false">
+                <forkNodeMoniker Id="1602cafe-c44b-41ec-9198-f43b98651956" LastKnownName="Fork1" />
+                <elementDefinition Id="94088590-05aa-451a-9744-817f18b397c6" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <joinNode Id="65309551-5bab-4646-8c51-f33b8daecd8d" name="Join1" isLeaf="false">
+            <elementDefinition Id="f254d417-c421-4035-833e-1fb22c5336d7" />
+            <flowNodeTargets>
+              <controlFlow Id="4f460474-0c30-4bd4-af50-6ed9774cf910" isLeaf="false">
+                <sendSignalActionMoniker Id="15a8aba0-2091-497e-8b40-41653e277bca" LastKnownName="通知所有线程退出" />
+                <elementDefinition Id="a34514a2-9029-4954-8d34-b6df502bd6bd" />
+              </controlFlow>
+            </flowNodeTargets>
+          </joinNode>
+          <acceptEventAction Id="98861bbe-ecbc-4d44-b3aa-3dde082f0482" name="等待任务到来" isLeaf="false" isUnmarshall="false">
+            <elementDefinition Id="7dae2c6d-2504-47c7-a82c-46cba7456a26" />
+            <flowNodeTargets>
+              <controlFlow Id="0df34d1b-9a4c-4622-b4a0-96ece26df244" isLeaf="false">
+                <decisionNodeMoniker Id="486e42d1-1c04-46b2-83f1-1cbcfbe77a88" LastKnownName="Decision1" />
+                <elementDefinition Id="7a000184-e150-497c-917a-40baf64f98bc" />
+              </controlFlow>
+            </flowNodeTargets>
+          </acceptEventAction>
+          <opaqueAction Id="098b268b-6e86-485a-a8fe-aac930225df2" name="执行任务" isLeaf="false">
+            <elementDefinition Id="2ff6aa1e-fc68-426b-96d4-2b23711eb87f" />
+            <flowNodeTargets>
+              <controlFlow Id="0bc17eac-d61c-4724-b4cf-0e70b42ef708" isLeaf="false">
+                <opaqueActionMoniker Id="1e470b0d-8229-47eb-9d5c-5f3aa743b151" LastKnownName="修改工作线程状态" />
+                <elementDefinition Id="578a82cf-8601-43f9-ad1c-9612ddf9dd88" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="7c8e19b8-cd9c-4b8d-84a2-be04b2d650df" name="Sizing过程" isLeaf="false">
+            <elementDefinition Id="2c55ffe1-d97f-4ed4-934e-373891a1507b" />
+            <flowNodeTargets>
+              <controlFlow Id="99ba6a05-fd24-464f-970b-794f3ccfccbc" isLeaf="false">
+                <sendSignalActionMoniker Id="78a73fe3-67ca-4658-96f4-5a746f40f2f9" LastKnownName="post 调整线程池大小" />
+                <elementDefinition Id="d0538d4d-9c80-4d77-9c0c-a538622d656a" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <sendSignalAction Id="78a73fe3-67ca-4658-96f4-5a746f40f2f9" name="post 调整线程池大小" isLeaf="false">
+            <elementDefinition Id="766764b3-f0ab-49de-9bb2-115b9ef5f275" />
+            <flowNodeTargets>
+              <controlFlow Id="7377d40a-0454-44bb-b710-a82f3d3d7cbd" isLeaf="false">
+                <mergeNodeMoniker Id="6ea13fd9-0ef6-434f-8980-eb48aafffca9" LastKnownName="Merge1" />
+                <elementDefinition Id="ef8668bb-93ff-4de4-81f3-15d1559475a6" />
+              </controlFlow>
+            </flowNodeTargets>
+          </sendSignalAction>
+          <opaqueAction Id="4c80ad5b-2530-4972-9a75-ccb70738243e" name="终止线程池" isLeaf="false">
+            <elementDefinition Id="91c67120-fe57-46fc-a7a5-8d753ba25ca6" />
+            <flowNodeTargets>
+              <controlFlow Id="c1538608-d607-466d-b09f-289485b3ad85" isLeaf="false">
+                <sendSignalActionMoniker Id="ddcaddef-eb70-4479-99a2-233936d8ec9d" LastKnownName="通知结束运行" />
+                <elementDefinition Id="faf9026c-c677-488a-bb06-49c3b076e7b0" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <sendSignalAction Id="ddcaddef-eb70-4479-99a2-233936d8ec9d" name="通知结束运行" isLeaf="false">
+            <elementDefinition Id="6f78150e-3d84-4aff-ae28-1fab6a3d9794" />
+            <flowNodeTargets>
+              <controlFlow Id="c1018b7a-91f4-4f00-92ee-284a52ac794b" isLeaf="false">
+                <acceptEventActionMoniker Id="cd9cdc5b-bac7-4829-84f7-4da056d6647b" LastKnownName="等待所有线程退出" />
+                <elementDefinition Id="2f4f6fcd-840d-49a9-bbc7-986c72de955b" />
+              </controlFlow>
+            </flowNodeTargets>
+          </sendSignalAction>
+          <acceptEventAction Id="cd9cdc5b-bac7-4829-84f7-4da056d6647b" name="等待所有线程退出" isLeaf="false" isUnmarshall="false">
+            <elementDefinition Id="6b9a422d-a41f-4492-b89e-4760d1039a87" />
+            <flowNodeTargets>
+              <controlFlow Id="b5d09d99-7c34-4b81-9eea-7ed674b4c7b8" isLeaf="false">
+                <activityFinalNodeMoniker Id="235eea39-53af-4856-8007-5fddfcf6f30d" LastKnownName="ActivityFinal2" />
+                <elementDefinition Id="258ae750-90cb-4629-911d-1ea5d3ae71fa" />
+              </controlFlow>
+            </flowNodeTargets>
+          </acceptEventAction>
+          <sendSignalAction Id="15a8aba0-2091-497e-8b40-41653e277bca" name="通知所有线程退出" isLeaf="false">
+            <elementDefinition Id="bd107e50-235e-40de-be18-b607a3dfb013" />
+            <flowNodeTargets>
+              <controlFlow Id="73420832-c547-49db-bfeb-efda777fd9b9" isLeaf="false">
+                <activityFinalNodeMoniker Id="ad38aa8a-1911-4b73-ad9f-57958fa31c5b" LastKnownName="ActivityFinal3" />
+                <elementDefinition Id="18ade2f2-a8e8-4a3d-b9e9-d8ede19f8d78" />
+              </controlFlow>
+            </flowNodeTargets>
+          </sendSignalAction>
+          <opaqueAction Id="1e470b0d-8229-47eb-9d5c-5f3aa743b151" name="修改工作线程状态" isLeaf="false">
+            <elementDefinition Id="957b4d65-6e53-4c38-a7ee-d527e5910748" />
+            <flowNodeTargets>
+              <controlFlow Id="1ab6a80d-fbc8-4c81-a4e7-b8c4cf96e653" isLeaf="false">
+                <mergeNodeMoniker Id="6ea13fd9-0ef6-434f-8980-eb48aafffca9" LastKnownName="Merge1" />
+                <elementDefinition Id="e40f3148-05fd-484c-a009-f50ca29d0449" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <decisionNode Id="486e42d1-1c04-46b2-83f1-1cbcfbe77a88" name="Decision1" isLeaf="false">
+            <elementDefinition Id="2c0f7460-12b8-4018-ab7b-0fd35135bef0" />
+            <flowNodeTargets>
+              <controlFlow Id="b9822579-c35c-4c5a-a5e1-56546900c1a6" isLeaf="false">
+                <opaqueActionMoniker Id="098b268b-6e86-485a-a8fe-aac930225df2" LastKnownName="执行任务" />
+                <elementDefinition Id="56105d69-4440-4296-a84d-10dfa0ec37ff" />
+              </controlFlow>
+              <controlFlow Id="472d9178-a627-4a72-8820-251882eb0572" isLeaf="false">
+                <decisionNodeMoniker Id="37ea19bd-7a95-41b0-9bf3-ea7c7c008dde" LastKnownName="Decision2" />
+                <elementDefinition Id="06f03a28-265e-4326-a5a6-b84dd297a3bf" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <decisionNode Id="37ea19bd-7a95-41b0-9bf3-ea7c7c008dde" name="Decision2" isLeaf="false">
+            <elementDefinition Id="854f96f0-9a6c-46f1-93d1-b4c66aaa4728" />
+            <flowNodeTargets>
+              <controlFlow Id="98f56abf-20f3-429e-87a0-41c9b3c180d1" isLeaf="false">
+                <opaqueActionMoniker Id="7c8e19b8-cd9c-4b8d-84a2-be04b2d650df" LastKnownName="Sizing过程" />
+                <elementDefinition Id="670f2fe8-98b6-447c-b97f-c02e81fd98ad" />
+              </controlFlow>
+              <controlFlow Id="f4027788-05a8-489f-a426-7d82f4fc81e4" isLeaf="false">
+                <opaqueActionMoniker Id="c1b402ae-9aa9-46e5-918c-38480e153a56" LastKnownName="工作线程退出" />
+                <elementDefinition Id="9aaf1cc7-1e4b-49f5-af24-c8be3a25a8ba" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction Id="c1b402ae-9aa9-46e5-918c-38480e153a56" name="工作线程退出" isLeaf="false">
+            <elementDefinition Id="04103150-3d45-4c63-b373-4b8d3d2c1db0" />
+            <flowNodeTargets>
+              <controlFlow Id="3c0ee15f-b784-4ac9-aa67-9efb1eb14909" isLeaf="false">
+                <joinNodeMoniker Id="65309551-5bab-4646-8c51-f33b8daecd8d" LastKnownName="Join1" />
+                <elementDefinition Id="3352b301-303b-4734-a4de-ab56a55abb13" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <mergeNode Id="6ea13fd9-0ef6-434f-8980-eb48aafffca9" name="Merge1" isLeaf="false">
+            <elementDefinition Id="b0728b02-b5e9-4619-9ea1-656700eeb6b4" />
+            <flowNodeTargets>
+              <controlFlow Id="7aea6452-1401-434f-94ed-29998ae067bd" isLeaf="false">
+                <acceptEventActionMoniker Id="98861bbe-ecbc-4d44-b3aa-3dde082f0482" LastKnownName="等待任务到来" />
+                <elementDefinition Id="b860a278-e3dd-4e84-895f-82f2c4c88e14" />
+              </controlFlow>
+            </flowNodeTargets>
+          </mergeNode>
+          <opaqueAction Id="f53c77da-a7c7-42bf-ae5d-149420027cb0" name="计划新任务" isLeaf="false">
+            <elementDefinition Id="47d2211c-2f32-4498-ae25-fdf6744e01bf" />
+            <flowNodeTargets>
+              <controlFlow Id="252944a8-d790-4135-8d2f-63716dce5caa" isLeaf="false">
+                <opaqueActionMoniker Id="e136658e-968f-4aa3-94c7-ca735473635e" LastKnownName="修改任务统计" />
+                <elementDefinition Id="e92c00b0-150e-4e04-81a2-a8a2d68a1151" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="e136658e-968f-4aa3-94c7-ca735473635e" name="修改任务统计" isLeaf="false">
+            <elementDefinition Id="404a285d-5584-46a8-a87b-2daa1025ebc2" />
+            <flowNodeTargets>
+              <controlFlow Id="970ac495-3ede-4d20-bf8b-be83fad9d009" isLeaf="false">
+                <sendSignalActionMoniker Id="b90749ff-86fd-4b4d-a382-2032e10b505c" LastKnownName="通知任务到来" />
+                <elementDefinition Id="255e32be-b4d9-484c-a86c-f6ce7e6e73c8" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <sendSignalAction Id="b90749ff-86fd-4b4d-a382-2032e10b505c" name="通知任务到来" isLeaf="false">
+            <elementDefinition Id="09a28da1-8deb-4114-9099-d91e2b98aab7" />
+            <flowNodeTargets>
+              <controlFlow Id="04e91f60-5c4b-4ce0-a35a-a07a375be0a7" isLeaf="false">
+                <activityFinalNodeMoniker Id="1abaf8cd-323b-4d36-977d-a9bb75aa33f7" LastKnownName="ActivityFinal1" />
+                <elementDefinition Id="e64e0133-4b5e-49c2-853f-2eff3cb8d221" />
+              </controlFlow>
+            </flowNodeTargets>
+          </sendSignalAction>
+          <activityFinalNode Id="1abaf8cd-323b-4d36-977d-a9bb75aa33f7" name="ActivityFinal1" isLeaf="false">
+            <elementDefinition Id="1ce57677-9f98-4e11-aa3e-e83f84f04979" />
+          </activityFinalNode>
+          <activityFinalNode Id="235eea39-53af-4856-8007-5fddfcf6f30d" name="ActivityFinal2" isLeaf="false">
+            <elementDefinition Id="dfdedd40-48bf-403d-973e-25f409d92074" />
+          </activityFinalNode>
+          <activityFinalNode Id="ad38aa8a-1911-4b73-ad9f-57958fa31c5b" name="ActivityFinal3" isLeaf="false">
+            <elementDefinition Id="1a385b42-8637-44d7-8095-26f3dcee4378" />
+          </activityFinalNode>
+        </nodes>
+      </activity>
+    </activityRootModelHasActivity>
+  </packagedElements>
+  <package Id="810bddf0-0cf3-449f-ac03-2e5784487365" name="ModelingProject1">
+    <elementDefinition Id="4935cea8-1bc6-4b48-87e2-c01ed2cf28bc" />
+  </package>
+</activityRootModel>
