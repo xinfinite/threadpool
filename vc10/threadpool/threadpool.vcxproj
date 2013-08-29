@@ -78,7 +78,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\boost\threadpool.hpp" />
     <ClInclude Include="..\..\boost\threadpool\detail\future.hpp" />
-    <ClInclude Include="..\..\boost\threadpool\detail\locking_ptr.hpp" />
     <ClInclude Include="..\..\boost\threadpool\detail\pool_core.hpp" />
     <ClInclude Include="..\..\boost\threadpool\detail\scope_guard.hpp" />
     <ClInclude Include="..\..\boost\threadpool\detail\worker_sizing_policy.hpp" />

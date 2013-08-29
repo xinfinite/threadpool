@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm9="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm10="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm11="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner"
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner" xmlns:dm10="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm11="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
   dslVersion="1.0.0.0"
   Id="4935cea8-1bc6-4b48-87e2-c01ed2cf28bc"
   name="ModelingProject1" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
@@ -8015,34 +8015,251 @@
             isLeaf="false">
             <flowNodeTargets>
               <controlFlow
-                Id="9ad192a4-9aff-4770-83fd-abd39c8c26fd"
+                Id="7242140c-1597-486a-ab59-2fbf11c94b33"
                 isLeaf="false">
                 <opaqueActionMoniker
-                  Id="873f17f4-984f-49d4-a309-ee644bcc98b1"
-                  LastKnownName="io_service::run"
+                  Id="2dda8c59-cac2-42d5-bd2c-89063a60138a"
+                  LastKnownName="等待任务2"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="3a877d83-8bbe-4543-a155-8cab7c93b4d4"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="c9498e55-a650-4a53-8439-6c19b00addc2"
+                  LastKnownName="等待任务1"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="514845c1-1297-4144-9c3d-699477bbbd7b"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="a81c8e5c-ac39-47cb-abf8-67cb1f46bed6"
+                  LastKnownName="等待任务"
                   LastKnownLocation="ModelingProject1.uml" />
               </controlFlow>
             </flowNodeTargets>
           </forkNode>
+          <joinNode
+            Id="bb2cb7e5-1ce1-4b47-bc2d-f7a7a61a0cca"
+            name="Join1"
+            isLeaf="false" />
           <opaqueAction
-            Id="873f17f4-984f-49d4-a309-ee644bcc98b1"
-            name="io_service::run"
+            Id="aeea3643-2460-4605-b806-f4734eb8a884"
+            name="提交任务"
             isLeaf="false">
             <flowNodeTargets>
               <controlFlow
-                Id="776820fe-1c97-405f-a9e7-7f680b53f0ef"
+                Id="1ca55f29-edc5-4e78-a5a3-b736067e6f6f"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="a46abbb1-c5f2-4613-9d79-4b0319f8c745"
+                  LastKnownName="存入任务队列"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="a81c8e5c-ac39-47cb-abf8-67cb1f46bed6"
+            name="等待任务"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="e3d4ed88-f275-4281-b1f4-a3cd1408697d"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="06ed978a-4015-4e0b-911c-f7563eea5537"
+                  LastKnownName="执行任务"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="06ed978a-4015-4e0b-911c-f7563eea5537"
+            name="执行任务"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="12305758-56e2-43b7-9d5d-1729f9c065e3"
                 isLeaf="false">
                 <joinNodeMoniker
                   Id="bb2cb7e5-1ce1-4b47-bc2d-f7a7a61a0cca"
                   LastKnownName="Join1"
                   LastKnownLocation="ModelingProject1.uml" />
               </controlFlow>
+              <controlFlow
+                Id="1411ed0d-addc-429b-a02d-bb5155605afe"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="a81c8e5c-ac39-47cb-abf8-67cb1f46bed6"
+                  LastKnownName="等待任务"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
             </flowNodeTargets>
           </opaqueAction>
-          <joinNode
-            Id="bb2cb7e5-1ce1-4b47-bc2d-f7a7a61a0cca"
-            name="Join1"
+          <opaqueAction
+            Id="c9498e55-a650-4a53-8439-6c19b00addc2"
+            name="等待任务1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="5dc94ef8-2a81-49c9-869e-fcf45588d518"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="e7909b74-ac0d-4e93-8a72-f4a18b7b6f92"
+                  LastKnownName="执行任务1"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="e7909b74-ac0d-4e93-8a72-f4a18b7b6f92"
+            name="执行任务1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="b7d8d934-f5ae-4324-ac78-65b4335d2d33"
+                isLeaf="false">
+                <joinNodeMoniker
+                  Id="bb2cb7e5-1ce1-4b47-bc2d-f7a7a61a0cca"
+                  LastKnownName="Join1"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="353338bd-dcf3-49ed-9643-91b1b055c0ed"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="c9498e55-a650-4a53-8439-6c19b00addc2"
+                  LastKnownName="等待任务1"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="2dda8c59-cac2-42d5-bd2c-89063a60138a"
+            name="等待任务2"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="2802910c-3bc4-4814-bd9f-3e7d8d71480c"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="7e31bc2a-0f19-44b5-b406-6e367e9eb9c8"
+                  LastKnownName="执行任务2"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="7e31bc2a-0f19-44b5-b406-6e367e9eb9c8"
+            name="执行任务2"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="3ead6ec3-fbf1-49e0-acb8-794674f43c40"
+                isLeaf="false">
+                <joinNodeMoniker
+                  Id="bb2cb7e5-1ce1-4b47-bc2d-f7a7a61a0cca"
+                  LastKnownName="Join1"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="ae290b56-71e2-40ae-97ab-d2f173f66822"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="2dda8c59-cac2-42d5-bd2c-89063a60138a"
+                  LastKnownName="等待任务2"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="a46abbb1-c5f2-4613-9d79-4b0319f8c745"
+            name="存入任务队列"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="1ea00c18-3b3e-4b04-9c77-590c469a8678"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="ae0b3692-7ad7-4f21-bd58-76d07ddff782"
+                  LastKnownName="检查是否有空闲线程"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="ae0b3692-7ad7-4f21-bd58-76d07ddff782"
+            name="检查是否有空闲线程"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="036cbf06-be71-4d10-9552-33b03f2fc256"
+                isLeaf="false">
+                <decisionNodeMoniker
+                  Id="de8ae5f2-dca2-4707-8c87-02dfcf4c86e7"
+                  LastKnownName="Decision1"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <decisionNode
+            Id="de8ae5f2-dca2-4707-8c87-02dfcf4c86e7"
+            name="Decision1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="4e64119d-34d9-4e58-a997-d2373c6cc4de"
+                isLeaf="false">
+                <sendSignalActionMoniker
+                  Id="81b308ef-b39f-47f8-bc1b-2179c144cfc0"
+                  LastKnownName="通知线程开始工作"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="0b686f2f-56ae-403f-852e-3f160706322b"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="fb5d6c1a-f527-4697-9eb0-ae83c115c6d9"
+                  LastKnownName="创建新线程"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <sendSignalAction
+            Id="81b308ef-b39f-47f8-bc1b-2179c144cfc0"
+            name="通知线程开始工作"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="bacee778-9c52-4aa7-9e2c-8b36d27ad0f8"
+                isLeaf="false">
+                <activityFinalNodeMoniker
+                  Id="4a794752-b1c9-423b-ac99-584d6d76bd7f"
+                  LastKnownName="ActivityFinal1"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </sendSignalAction>
+          <activityFinalNode
+            Id="4a794752-b1c9-423b-ac99-584d6d76bd7f"
+            name="ActivityFinal1"
             isLeaf="false" />
+          <opaqueAction
+            Id="fb5d6c1a-f527-4697-9eb0-ae83c115c6d9"
+            name="创建新线程"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="cc334f70-888d-4cc1-ba2d-a96583ae7324"
+                isLeaf="false">
+                <sendSignalActionMoniker
+                  Id="81b308ef-b39f-47f8-bc1b-2179c144cfc0"
+                  LastKnownName="通知线程开始工作"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
         </nodes>
       </activity>
     </packageHasNamedElement>

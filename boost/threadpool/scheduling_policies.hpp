@@ -119,7 +119,10 @@ namespace boost { namespace threadpool
   {
   public:
     typedef Task task_type;  //!< Indicates the scheduler's task type.
-
+	typedef mutex mutex_type;
+	mutex_type mutex_;
+	template <class Scheduler>
+	friend bool fetch_task(Scheduler& s , function0<void>& task);
   protected:
     std::deque<task_type> m_container;  //!< Internal task container.	
 
@@ -253,6 +256,7 @@ namespace boost { namespace threadpool
       }
     } 
   };
+  
 
 
 } } // namespace boost::threadpool

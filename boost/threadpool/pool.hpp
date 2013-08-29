@@ -1,7 +1,7 @@
 /*! \file
 * \brief Thread pool core.
 *
-* This file contains the threadpool's core class: pool<Task, SchedulingPolicy>.
+* This file contains the threadpool's core class: pool<Task, TaskQueuePolicy>.
 *
 * Thread pools are a mechanism for asynchronous and parallel processing 
 * within the same process. The pool class provides a convenient way 
@@ -56,7 +56,7 @@ namespace boost { namespace threadpool
   * that is, the behavior of concurrent calls is as if the calls have been issued sequentially in an unspecified order.
   *
   * \param Task A function object which implements the operator 'void operator() (void) const'. The operator () is called by the pool to execute the task. Exceptions are ignored.
-  * \param SchedulingPolicy A task container which determines how tasks are scheduled. It is guaranteed that this container is accessed only by one thread at a time. The scheduler shall not throw exceptions.
+  * \param TaskQueuePolicy A task container which determines how tasks are scheduled. It is guaranteed that this container is accessed only by one thread at a time. The scheduler shall not throw exceptions.
   *
   * \remarks The pool class is thread-safe.
   * 
@@ -65,7 +65,7 @@ namespace boost { namespace threadpool
   */ 
   template <
     typename Task                                   = task_func,
-    template <typename> class SchedulingPolicy      = fifo_scheduler,
+    template <typename> class TaskQueuePolicy      = fifo_scheduler,
     template <typename> class SizePolicy            = static_size,
     template <typename> class SizePolicyController  = resize_controller,
     template <typename> class ShutdownPolicy        = wait_for_all_tasks
@@ -73,7 +73,7 @@ namespace boost { namespace threadpool
   class thread_pool 
   {
     typedef detail::pool_core<Task, 
-                              SchedulingPolicy,
+                              TaskQueuePolicy,
                               SizePolicy,
                               SizePolicyController,
                               ShutdownPolicy> pool_core_type;
@@ -82,9 +82,9 @@ namespace boost { namespace threadpool
 
   public: // Type definitions
     typedef Task task_type;                                   //!< Indicates the task's type.
-    typedef SchedulingPolicy<task_type> scheduler_type;       //!< Indicates the scheduler's type.
+    typedef TaskQueuePolicy<task_type> scheduler_type;       //!< Indicates the scheduler's type.
  /*   typedef thread_pool<Task, 
-                        SchedulingPolicy,
+                        TaskQueuePolicy,
                         SizePolicy,
                         ShutdownPolicy > pool_type;          //!< Indicates the thread pool's type.
  */

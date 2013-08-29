@@ -113,7 +113,7 @@ namespace boost { namespace threadpool
 
   public:
     typedef void result_type; //!< Indicates the functor's result type.
-
+	
   public:
     /*! Constructor.
     * \param function The task's function object which is looped until false is returned.

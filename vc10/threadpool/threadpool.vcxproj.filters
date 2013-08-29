@@ -60,9 +60,6 @@
     <ClInclude Include="..\..\boost\threadpool\detail\future.hpp">
       <Filter>boost\threadpool\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\boost\threadpool\detail\locking_ptr.hpp">
-      <Filter>boost\threadpool\detail</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\boost\threadpool\detail\pool_core.hpp">
       <Filter>boost\threadpool\detail</Filter>
     </ClInclude>

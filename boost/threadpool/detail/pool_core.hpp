@@ -1,7 +1,7 @@
 /*! \file
 * \brief Thread pool core.
 *
-* This file contains the threadpool's core class: pool<Task, SchedulingPolicy>.
+* This file contains the threadpool's core class: pool<Task, TaskQueuePolicy>.
 *
 * Thread pools are a mechanism for asynchronous and parallel processing 
 * within the same process. The pool class provides a convenient way 
@@ -25,10 +25,9 @@
 
 
 
-#include "locking_ptr.hpp"
-#include "worker_thread.hpp"
-
-#include "../task_adaptors.hpp"
+#include <boost/threadpool/detail/locking_ptr.hpp>
+#include <boost/threadpool/detail/worker_thread.hpp>
+#include <boost/threadpool/task_adaptors.hpp>
 
 #include <boost/thread.hpp>
 #include <boost/thread/exceptions.hpp>
@@ -68,28 +67,29 @@ namespace boost { namespace threadpool { namespace detail
   */ 
   template <
     typename Task, 	
-    template <typename> class SchedulingPolicy,
+    template <typename> class TaskQueuePolicy,
     //template <typename> class SizePolicy,
-	class SizePolicy,
+	template <typename> class SizePolicy,
     template <typename> class SizePolicyController,
     template <typename> class ShutdownPolicy
   > 
   class pool_core
-  : public enable_shared_from_this< pool_core<Task, SchedulingPolicy,SizePolicy, SizePolicyController, ShutdownPolicy > > 
+  : public enable_shared_from_this< pool_core<Task, TaskQueuePolicy,SizePolicy, SizePolicyController, ShutdownPolicy > > 
   , private noncopyable
   {
-	  typedef recursive_mutex pool_mutex;
-
+	typedef recursive_mutex	pool_mutex;
+	typedef mutex			worker_counting_mutex;
+	typedef mutex			event_mutex;
   public: // Type definitions
     typedef Task task_type;                                 //!< Indicates the task's type.
-    typedef SchedulingPolicy<task_type> scheduler_type;     //!< Indicates the scheduler's type.
+    typedef TaskQueuePolicy<task_type> task_queue_type;     //!< Indicates the scheduler's type.
     typedef pool_core<Task, 
-                      SchedulingPolicy, 
+                      TaskQueuePolicy, 
                       SizePolicy,
                       SizePolicyController,
                       ShutdownPolicy > pool_type;           //!< Indicates the thread pool's type.
     //typedef SizePolicy<pool_type> size_policy_type;         //!< Indicates the sizer's type.
-	typedef SizePolicy size_policy_type;
+	typedef SizePolicy<pool_type> size_policy_type;
     //typedef typename size_policy_type::size_controller size_controller_type;
 
     typedef SizePolicyController<pool_type> size_controller_type;
@@ -99,6 +99,9 @@ namespace boost { namespace threadpool { namespace detail
 
     typedef worker_thread<pool_type> worker_type;
 
+	typedef shared_ptr<worker_type> worker_shared_ptr;
+
+	//typedef list<worker_shared_ptr> worker_container;
     // The task is required to be a nullary function.
     BOOST_STATIC_ASSERT(function_traits<task_type()>::arity == 0);
 
@@ -117,15 +120,18 @@ namespace boost { namespace threadpool { namespace detail
    friend class ShutdownPolicy<pool_type>;
 #endif
 
-  private: // The following members may be accessed by _multiple_ threads at the same time:
-    volatile size_t m_worker_count;	
-    volatile size_t m_target_worker_count;	
-    volatile size_t m_active_worker_count;
-      
-	asio::io_service async_io_;
+  private:	
+	worker_counting_mutex worker_counting_mutex_;
+	size_t m_worker_count;	
+	size_t m_target_worker_count;	
+	size_t m_active_worker_count;
 
+	size_t worker_fetching_count_;
+	size_t worker_processing_count_;
+	size_t worker_exiting_count_;
+	
   private: // The following members are accessed only by _one_ thread at the same time:
-    scheduler_type  m_scheduler;
+    task_queue_type  task_queue_;
 	//no ptr need here
     //scoped_ptr<size_policy_type> m_size_policy; // is never null
     size_policy_type m_size_policy;
@@ -133,10 +139,13 @@ namespace boost { namespace threadpool { namespace detail
     std::vector<shared_ptr<worker_type> > m_terminated_workers; // List of workers which are terminated but not fully destructed.
     
   private: // The following members are implemented thread-safe:
-    mutable recursive_mutex  m_monitor;
-    mutable condition m_worker_idle_or_terminated_event;	// A worker is idle or was terminated.
-    mutable condition m_task_or_terminate_workers_event;  // Task is available OR total worker count should be reduced.
+    recursive_mutex  m_monitor;
+	
+    condition m_worker_idle_or_terminated_event;	// A worker is idle or was terminated.
+    //condition m_task_or_terminate_workers_event;  // Task is available OR total worker count should be reduced.
 
+	event_mutex wakeup_worker_mutex_;
+	condition wakeup_worker_event_;  
   public:
     /// Constructor.
     pool_core()
@@ -148,7 +157,7 @@ namespace boost { namespace threadpool { namespace detail
       //pool_type volatile & self_ref = *this;
       //m_size_policy.reset(new size_policy_type());
 
-      m_scheduler.clear();
+      task_queue_.clear();
     }
 
 
@@ -156,24 +165,6 @@ namespace boost { namespace threadpool { namespace detail
     ~pool_core()
     {
     }
-
-	void handle_sizing_decision(size_policy_type::sizing_decision i){
-		while (i != 0)
-		{
-			if( i > 0){
-				try
-				{
-					 worker_thread<pool_type>::create_and_attach(shared_from_this());
-				}
-				catch (...)
-				{
-					
-				}				
-			}else{
-				//how ?
-			}
-		}
-	};
 
     /*! Gets the size controller which manages the number of threads in the pool. 
     * \return The size controller.
@@ -189,7 +180,7 @@ namespace boost { namespace threadpool { namespace detail
     /*! Gets the number of threads in the pool.
     * \return The number of threads.
     */
-    size_t size()	const volatile
+    size_t size() const
     {
       return m_worker_count;
     }
@@ -206,22 +197,17 @@ namespace boost { namespace threadpool { namespace detail
     */  
     bool schedule(task_type const & task) volatile
     {
-		pool_mutex::scoped_lock lock(m_monitor);
-		//locking_ptr<pool_type, recursive_mutex> lockedThis(*this, m_monitor); 
-      
-		async_io_.post(counted_task_wrapper<task_type>(task));
+		pool_mutex::scoped_lock lock(m_monitor);	
 
-		/*if(m_scheduler.push(task))
+		if(task_queue_.push(task))
 		{			
-		handle_sizing_decision(m_size_policy->on_task_schedule());
-
-		m_task_or_terminate_workers_event.notify_one();
-		return true;
+			m_task_or_terminate_workers_event.notify_one();
+			return true;
 		}
 		else
 		{
-		return false;
-		}*/
+			return false;
+		}
     }	
 
 
@@ -230,8 +216,8 @@ namespace boost { namespace threadpool { namespace detail
     */  
     size_t active() const volatile
     {
-      //return m_active_worker_count;
-		return m_size_policy.count_working_worker();
+		worker_counting_mutex_;
+		return m_active_worker_count;		
     }
 
 
@@ -240,9 +226,8 @@ namespace boost { namespace threadpool { namespace detail
     */  
     size_t pending() const volatile
     {
-      //locking_ptr<const pool_type, recursive_mutex> lockedThis(*this, m_monitor);
-      //return lockedThis->m_scheduler.size();
-		return m_size_policy.count_pending_task();
+		pool_mutex::scoped_lock lock(m_monitor);
+		return task_queue_.size();		
     }
 
 
@@ -277,7 +262,8 @@ namespace boost { namespace threadpool { namespace detail
 
       if(0 == task_threshold)
       {
-        while(0 != self->m_active_worker_count || !self->m_scheduler.empty())
+        //while(0 != self->m_active_worker_count || !self->m_scheduler.empty())
+		while( !(self->m_active_worker_count == 0 && self->m_scheduler.empty()) )
         { 
           self->m_worker_idle_or_terminated_event.wait(lock);
         }
@@ -370,11 +356,10 @@ namespace boost { namespace threadpool { namespace detail
       { 
         return false;
       }
-
-
-      if(m_worker_count <= m_target_worker_count)
+	  int worker_needed = worker_adjust_amount();
+      if( worker_needed > 0)
       { // increase worker count
-        while(m_worker_count < m_target_worker_count)
+        while(worker_adjust_amount() > 0)
         {
           try
           {
@@ -388,37 +373,52 @@ namespace boost { namespace threadpool { namespace detail
           }
         }
       }
-      else
+      else if( worker_needed < 0)
       { // decrease worker count
-        lockedThis->m_task_or_terminate_workers_event.notify_all();   // TODO: Optimize number of notified workers
+			lockedThis->m_task_or_terminate_workers_event.notify_all();   // TODO: Optimize number of notified workers
       }
 
       return true;
     }
+
+	int worker_adjust_amount() 
+	{		
+		worker_counting_mutex::scoped_lock lock(worker_counting_mutex_);
+		int target = m_target_worker_count;
+		target -= m_worker_count;
+		
+		return target;
+	}
 
 
     // worker died with unhandled exception
     void worker_died_unexpectedly(shared_ptr<worker_type> worker) volatile
     {
-      locking_ptr<pool_type, recursive_mutex> lockedThis(*this, m_monitor);
+      //locking_ptr<pool_type, recursive_mutex> lockedThis(*this, m_monitor);
+	  
+	  
+	  
+		worker_counting_mutex::scoped_lock lock(worker_counting_mutex_);
+		m_worker_count--;
+		m_active_worker_count--;	  
+      
+		m_worker_idle_or_terminated_event.notify_all();	
 
-      m_worker_count--;
-      m_active_worker_count--;
-      lockedThis->m_worker_idle_or_terminated_event.notify_all();	
-
-      if(m_terminate_all_workers)
-      {
-        lockedThis->m_terminated_workers.push_back(worker);
-      }
-      else
-      {
-        lockedThis->m_size_policy->worker_died_unexpectedly(m_worker_count);
-      }
+		if(m_terminate_all_workers)
+		{
+			//ÓÐ±ØÒªÂð£¿
+			m_terminated_workers.push_back(worker);
+		}
+		else
+		{
+			m_size_policy->worker_died_unexpectedly(m_worker_count);
+		}
     }
 
     void worker_destructed(shared_ptr<worker_type> worker) volatile
     {
-      locking_ptr<pool_type, recursive_mutex> lockedThis(*this, m_monitor);
+		//locking_ptr<pool_type, recursive_mutex> lockedThis(*this, m_monitor);
+
       m_worker_count--;
       m_active_worker_count--;
       lockedThis->m_worker_idle_or_terminated_event.notify_all();	
@@ -428,54 +428,71 @@ namespace boost { namespace threadpool { namespace detail
         lockedThis->m_terminated_workers.push_back(worker);
       }
     }
+	
+	void worker_fetching(){
+		worker_counting_mutex::scoped_lock lock(worker_counting_mutex_);		
+		worker_processing_count_--;
+		worker_fetching_count_++;
+	};
+	void worker_processing(){
+		worker_counting_mutex::scoped_lock lock(worker_counting_mutex_);		
+		worker_fetching_count_--;
+		worker_processing_count_++;
+	};
+	void worker_exiting(){
+		worker_counting_mutex::scoped_lock lock(worker_counting_mutex_);
+		worker_fetching_count_--;
+		worker_exiting_count_++;
+	};
+	void worker_exception(){
+		worker_counting_mutex::scoped_lock lock(worker_counting_mutex_);
+		worker_processing_count_--;
+	};
+	template <class Task>
+	bool fetch_task(task_queue_type& s ,Task & task){
+		Scheduler::mutex_type::scoped_lock lock(s.mutex_);
+		if(s.m_container.size()){		  
+			task = s.m_container.top();
+			s.m_container.pop();
+			return true;
+		}else{
+			return false;
+		}
+	};
+	template <class Task>
+	bool add_task(task_queue_type& s, Task& t){
+		Scheduler::mutex_type::scoped_lock lock(s.mutex_);
+		s.m_container.push_back(t);
+	};
 
-
-    bool execute_task() volatile
+    void execute_task()
     {
-      function0<void> task;
+		while(true){
+			function0<void> task;	
+			worker_fetching();
+			{			
+				event_mutex::scoped_lock awake_lock(wakeup_worker_mutex_);
 
-      { // fetch task
-        pool_type* lockedThis = const_cast<pool_type*>(this);
-        recursive_mutex::scoped_lock lock(lockedThis->m_monitor);
+				while(worker_adjust_amount() >= 0 && !fetch_task(task_queue_,task));
+				{				
+					wakeup_worker_event_.wait(awake_lock);
+				}
+			}	
 
-        // decrease number of threads if necessary
-        if(m_worker_count > m_target_worker_count)
-        {	
-          return false;	// terminate worker
-        }
-
-
-        // wait for tasks
-        while(lockedThis->m_scheduler.empty())
-        {	
-          // decrease number of workers if necessary
-          if(m_worker_count > m_target_worker_count)
-          {	
-            return false;	// terminate worker
-          }
-          else
-          {
-            m_active_worker_count--;
-            lockedThis->m_worker_idle_or_terminated_event.notify_all();	
-            lockedThis->m_task_or_terminate_workers_event.wait(lock);
-            m_active_worker_count++;
-          }
-        }
-
-        task = lockedThis->m_scheduler.top();
-        lockedThis->m_scheduler.pop();
-      }
-
-      // call task function
-      if(task)
-      {
-        task();
-      }
- 
-      //guard->disable();
-      return true;
+			if(task)
+			{
+				scope_guard guard(bind(&pool_type::worker_exception,shared_from_this()));
+				worker_processing();
+				task();
+				guard.disable();				
+			}else{
+				worker_exiting();
+				return;
+			}			
+		}
+		return;
     }
-  };
+};
 
 
 
