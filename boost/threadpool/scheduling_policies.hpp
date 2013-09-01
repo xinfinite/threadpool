@@ -41,6 +41,7 @@ namespace boost { namespace threadpool
   * \param Task A function object which implements the operator()(void).
   *
   */ 
+
   template <typename Task = task_func>  
   class fifo_scheduler
   {
@@ -119,8 +120,7 @@ namespace boost { namespace threadpool
   {
   public:
     typedef Task task_type;  //!< Indicates the scheduler's task type.
-	typedef mutex mutex_type;
-	mutex_type mutex_;
+
 	template <class Scheduler>
 	friend bool fetch_task(Scheduler& s , function0<void>& task);
   protected:
