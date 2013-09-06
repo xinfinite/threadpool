@@ -22,9 +22,13 @@
     <Filter Include="boost\threadpool\detail">
       <UniqueIdentifier>{015ad519-2ef9-4172-98af-8445025c0365}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gtest">
+      <UniqueIdentifier>{b1541d18-5a5a-4ed6-a84b-bf8e6ba1e65f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -48,16 +52,7 @@
     <ClInclude Include="..\..\boost\threadpool\scheduling_policies.hpp">
       <Filter>boost\threadpool</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\boost\threadpool\shutdown_policies.hpp">
-      <Filter>boost\threadpool</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\boost\threadpool\size_policies.hpp">
-      <Filter>boost\threadpool</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\boost\threadpool\detail\worker_thread.hpp">
-      <Filter>boost\threadpool\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\boost\threadpool\detail\future.hpp">
       <Filter>boost\threadpool\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\..\boost\threadpool\detail\pool_core.hpp">
@@ -66,11 +61,14 @@
     <ClInclude Include="..\..\boost\threadpool\detail\scope_guard.hpp">
       <Filter>boost\threadpool\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\boost\threadpool\detail\worker_sizing_policy.hpp">
-      <Filter>boost\threadpool\detail</Filter>
+    <ClInclude Include="..\..\gtest\test1.hpp">
+      <Filter>gtest</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\boost\threadpool\future.hpp">
-      <Filter>boost\threadpool\detail</Filter>
+    <ClInclude Include="..\..\gtest\test2.hpp">
+      <Filter>gtest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gtest\test3.hpp">
+      <Filter>gtest</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +77,12 @@
     </ClCompile>
     <ClCompile Include="threadpool.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\boost\threadpool\pool.cpp">
+      <Filter>boost\threadpool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\boost\threadpool\detail\pool.ipp">
+      <Filter>boost\threadpool\detail</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

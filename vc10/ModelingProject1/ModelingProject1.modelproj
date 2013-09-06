@@ -38,12 +38,19 @@
       <SubType>Content</SubType>
       <DependentUpon>UMLActivityDiagram1.activitydiagram</DependentUpon>
     </Content>
-    <Content Include="UMLActivityDiagram2.activitydiagram">
+    <Content Include="调整大小.activitydiagram">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="UMLActivityDiagram2.activitydiagram.layout">
+    <Content Include="调整大小.activitydiagram.layout">
       <SubType>Content</SubType>
-      <DependentUpon>UMLActivityDiagram2.activitydiagram</DependentUpon>
+      <DependentUpon>调整大小.activitydiagram</DependentUpon>
+    </Content>
+    <Content Include="总览.activitydiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="总览.activitydiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>总览.activitydiagram</DependentUpon>
     </Content>
     <Content Include="UMLClassDiagram1.classdiagram">
       <SubType>Content</SubType>

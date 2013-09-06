@@ -18,7 +18,7 @@
 #define THREADPOOL_DETAIL_WORKER_THREAD_HPP_INCLUDED
 
 
-#include "scope_guard.hpp"
+#include <boost/threadpool/detail/scope_guard.hpp>
 
 #include <boost/smart_ptr.hpp>
 #include <boost/thread.hpp>
@@ -30,7 +30,6 @@
 
 namespace boost { namespace threadpool { namespace detail 
 {
-
   /*! \brief Thread pool worker. 
   *
   * A worker_thread represents a thread of execution. The worker is attached to a 
@@ -45,62 +44,62 @@ namespace boost { namespace threadpool { namespace detail
   class worker_thread
   : public enable_shared_from_this< worker_thread<Pool> > 
   , private noncopyable
-  {
-  public:
-    typedef Pool pool_type;         	   //!< Indicates the pool's type.
+	{
+		typedef condition_variable condition;
+	public:
+		typedef Pool pool_type;         	   //!< Indicates the pool's type.
 
-  private:
-    shared_ptr<pool_type>      m_pool;     //!< Pointer to the pool which created the worker.
-    shared_ptr<boost::thread>  m_thread;   //!< Pointer to the thread which executes the run loop.
-	
-	bool exit_requested_;
+		typedef typename pool_type::ptr_type pool_ptr;
+		
+		typedef shared_ptr<worker_thread> ptr_type;
+	private:
+		typename pool_type::ptr_type      m_pool;     //!< Pointer to the pool which created the worker.
+
+		boost::thread  thread_;   //!< Pointer to the thread which executes the run loop.
+		
+		
     
     /*! Constructs a new worker. 
     * \param pool Pointer to it's parent pool.
     * \see function create_and_attach
     */
-    worker_thread(shared_ptr<pool_type> & pool)
-    : m_pool(pool)
-    {
-      assert(pool);
-    }
+	worker_thread(shared_ptr<pool_type> & pool)	: m_pool(pool)
+	{
+		assert(pool);		
+	}
 
   public:
 	  /*! Executes pool's tasks sequentially.
 	  */
-	  void run()
-	  {	  
+	  
+	  void run(){
 		  m_pool->execute_task();		  
 	  }
-
+	
 	  /*! Joins the worker's thread.
 	  */
 	  void join()
 	  {
-		  m_thread->join();
+		  thread_->join();
 	  }
-
-
+	  	
 	  /*! Constructs a new worker thread and attaches it to the pool.
 	  * \param pool Pointer to the pool.
 	  */
 
 	  
-	  static void create_and_attach(shared_ptr<pool_type> pool)
+	  static ptr_type create_and_attach(shared_ptr<pool_type> pool)
 	  {
-		  shared_ptr<worker_thread> worker(new worker_thread(pool));
-		  if(worker)
-		  {			  
-			 worker->m_thread.reset(new boost::thread(bind(&worker_thread::run, worker)));
-			 if(!worker->m_thread){
-				 throw std::bad_alloc("boost::thread");
-			 }
-		  }else{
+		  ptr_type worker(new worker_thread(pool));
+		  if(!worker)
+		  {		 
 			  throw std::bad_alloc("boost::thread_pool::detail::worker_thread");
-		  }  
+		  }
 
-		  return;
-	  }
+		  worker->thread_ = boost::thread(bind(&worker_thread::run, worker));
+
+		  return worker;
+	  };
 
   };
 

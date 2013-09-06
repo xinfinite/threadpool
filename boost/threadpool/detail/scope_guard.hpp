@@ -20,7 +20,7 @@
 
 
 #include <boost/function.hpp>
-
+#include <boost/noncopyable.hpp>
 
 namespace boost { namespace threadpool { namespace detail 
 {

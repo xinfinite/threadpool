@@ -2,14 +2,25 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "threadpool", "threadpool.vcxproj", "{2F341D9E-55A2-4A2D-892D-4D81ECA3D80C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7} = {C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest", "..\..\..\gtest-1.6.0\msvc\gtest.vcxproj", "{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}"
 EndProject
 Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "ModelingProject1", "..\ModelingProject1\ModelingProject1.modelproj", "{51FF660F-87EE-4F86-9860-239D9AF8C39E}"
 EndProject
 Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = threadpool.vsmdi
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
 		Debug|Win32 = Debug|Win32
+		MTd|Any CPU = MTd|Any CPU
+		MTd|Mixed Platforms = MTd|Mixed Platforms
+		MTd|Win32 = MTd|Win32
 		Release|Any CPU = Release|Any CPU
 		Release|Mixed Platforms = Release|Mixed Platforms
 		Release|Win32 = Release|Win32
@@ -20,16 +31,41 @@ Global
 		{2F341D9E-55A2-4A2D-892D-4D81ECA3D80C}.Debug|Mixed Platforms.Build.0 = Debug|Win32
 		{2F341D9E-55A2-4A2D-892D-4D81ECA3D80C}.Debug|Win32.ActiveCfg = Debug|Win32
 		{2F341D9E-55A2-4A2D-892D-4D81ECA3D80C}.Debug|Win32.Build.0 = Debug|Win32
+		{2F341D9E-55A2-4A2D-892D-4D81ECA3D80C}.MTd|Any CPU.ActiveCfg = Release|Win32
+		{2F341D9E-55A2-4A2D-892D-4D81ECA3D80C}.MTd|Mixed Platforms.ActiveCfg = Release|Win32
+		{2F341D9E-55A2-4A2D-892D-4D81ECA3D80C}.MTd|Mixed Platforms.Build.0 = Release|Win32
+		{2F341D9E-55A2-4A2D-892D-4D81ECA3D80C}.MTd|Win32.ActiveCfg = Release|Win32
+		{2F341D9E-55A2-4A2D-892D-4D81ECA3D80C}.MTd|Win32.Build.0 = Release|Win32
 		{2F341D9E-55A2-4A2D-892D-4D81ECA3D80C}.Release|Any CPU.ActiveCfg = Release|Win32
 		{2F341D9E-55A2-4A2D-892D-4D81ECA3D80C}.Release|Mixed Platforms.ActiveCfg = Release|Win32
 		{2F341D9E-55A2-4A2D-892D-4D81ECA3D80C}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{2F341D9E-55A2-4A2D-892D-4D81ECA3D80C}.Release|Win32.ActiveCfg = Release|Win32
 		{2F341D9E-55A2-4A2D-892D-4D81ECA3D80C}.Release|Win32.Build.0 = Release|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|Any CPU.ActiveCfg = Release|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|Mixed Platforms.ActiveCfg = Release|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|Mixed Platforms.Build.0 = Release|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|Win32.ActiveCfg = MTd|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|Win32.Build.0 = MTd|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.MTd|Any CPU.ActiveCfg = MTd|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.MTd|Mixed Platforms.ActiveCfg = MTd|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.MTd|Mixed Platforms.Build.0 = MTd|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.MTd|Win32.ActiveCfg = MTd|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.MTd|Win32.Build.0 = MTd|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Release|Any CPU.ActiveCfg = Release|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Release|Win32.ActiveCfg = Release|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Release|Win32.Build.0 = Release|Win32
 		{51FF660F-87EE-4F86-9860-239D9AF8C39E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{51FF660F-87EE-4F86-9860-239D9AF8C39E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51FF660F-87EE-4F86-9860-239D9AF8C39E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{51FF660F-87EE-4F86-9860-239D9AF8C39E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{51FF660F-87EE-4F86-9860-239D9AF8C39E}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{51FF660F-87EE-4F86-9860-239D9AF8C39E}.MTd|Any CPU.ActiveCfg = Release|Any CPU
+		{51FF660F-87EE-4F86-9860-239D9AF8C39E}.MTd|Any CPU.Build.0 = Release|Any CPU
+		{51FF660F-87EE-4F86-9860-239D9AF8C39E}.MTd|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{51FF660F-87EE-4F86-9860-239D9AF8C39E}.MTd|Mixed Platforms.Build.0 = Release|Any CPU
+		{51FF660F-87EE-4F86-9860-239D9AF8C39E}.MTd|Win32.ActiveCfg = Release|Any CPU
 		{51FF660F-87EE-4F86-9860-239D9AF8C39E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51FF660F-87EE-4F86-9860-239D9AF8C39E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{51FF660F-87EE-4F86-9860-239D9AF8C39E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU

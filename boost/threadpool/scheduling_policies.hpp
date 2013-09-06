@@ -26,7 +26,7 @@
 #include <queue>
 #include <deque>
 
-#include "task_adaptors.hpp"
+#include <boost/threadpool/task_adaptors.hpp>
 
 namespace boost { namespace threadpool
 {
@@ -82,7 +82,7 @@ namespace boost { namespace threadpool
     *  \return The number of tasks.
     *  \remarks Prefer empty() to size() == 0 to check if the scheduler is empty.
     */
-    size_t size() const
+    int size() const
     {
       return m_container.size();
     }
@@ -156,7 +156,7 @@ namespace boost { namespace threadpool
     *  \return The number of tasks.
     *  \remarks Prefer empty() to size() == 0 to check if the scheduler is empty.
     */
-    size_t size() const
+    int size() const
     {
       return m_container.size();
     }
@@ -232,7 +232,7 @@ namespace boost { namespace threadpool
     *  \return The number of tasks.
     *  \remarks Prefer empty() to size() == 0 to check if the scheduler is empty.
     */
-    size_t size() const
+    int size() const
     {
       return m_container.size();
     }

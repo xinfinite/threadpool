@@ -1,11 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner" xmlns:dm10="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm11="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner"
   dslVersion="1.0.0.0"
   Id="4935cea8-1bc6-4b48-87e2-c01ed2cf28bc"
   name="ModelingProject1" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
   <ownedCommentsInternal>
     <comment
       Id="2ef3dab8-538d-4f54-9d88-1b5297d373e6" />
+    <comment
+      Id="276dd906-c6cb-47e4-a551-45b762fa59a4">
+      <body>TODO target  -= 1</body>
+    </comment>
+    <comment
+      Id="f93a562f-1659-4486-b46c-d9ea161c138b">
+      <body>TODO 将锁放在开始处?</body>
+    </comment>
   </ownedCommentsInternal>
   <profileInstances>
     <packageHasProfileInstances
@@ -8043,7 +8051,18 @@
           <joinNode
             Id="bb2cb7e5-1ce1-4b47-bc2d-f7a7a61a0cca"
             name="Join1"
-            isLeaf="false" />
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="1e129126-0b28-4c48-bbef-b929a029aaf3"
+                isLeaf="false">
+                <activityFinalNodeMoniker
+                  Id="e3e38e8e-d34e-4c99-869c-768323c5826b"
+                  LastKnownName="ActivityFinal2"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </joinNode>
           <opaqueAction
             Id="aeea3643-2460-4605-b806-f4734eb8a884"
             name="提交任务"
@@ -8260,6 +8279,326 @@
               </controlFlow>
             </flowNodeTargets>
           </opaqueAction>
+          <activityFinalNode
+            Id="e3e38e8e-d34e-4c99-869c-768323c5826b"
+            name="ActivityFinal2"
+            isLeaf="false" />
+        </nodes>
+      </activity>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <activity
+        Id="72d54c4b-bf10-4130-be71-895faff95d88"
+        name="Activity2"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false"
+        isReentrant="false"
+        isReadOnly="false"
+        isSingleExecution="false">
+        <nodes>
+          <opaqueAction
+            Id="953dc454-172d-4d5e-9822-1094a97dd00c"
+            name="调整大小"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="7c393676-a9bc-4f27-974a-66ea186f6192"
+                isLeaf="false">
+                <decisionNodeMoniker
+                  Id="218bb3b7-3822-494f-98ec-15e13c4a1dbf"
+                  LastKnownName="Decision2"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="77dd663d-21a7-4111-8552-f5056aa753b8"
+            name="判断增加/减少"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="7493893a-934f-465e-bf4e-bd8e574c7845"
+                isLeaf="false">
+                <decisionNodeMoniker
+                  Id="c25d78ec-c972-4932-82b3-2deb83f49172"
+                  LastKnownName="Decision1"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <decisionNode
+            Id="c25d78ec-c972-4932-82b3-2deb83f49172"
+            name="Decision1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="4c836819-9e1a-437a-9db8-4d1fa6ad1ce6"
+                isLeaf="false">
+                <mergeNodeMoniker
+                  Id="cef77726-b0be-447c-8e37-da79eed3860d"
+                  LastKnownName="Merge2"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="ba8a7c7c-9ae6-4a43-99d1-5a654924b329"
+                isLeaf="false">
+                <mergeNodeMoniker
+                  Id="e3622dbc-d7e6-430c-9d68-b1eab006e4b6"
+                  LastKnownName="Merge21"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction
+            Id="83ea7d85-a1ed-4743-9c91-89b2e1706dbe"
+            name="锁住工作线程唤醒互斥量"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="9bc0e580-4250-4fcc-86cf-4ecd6c5b3a97"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="cb9f763a-dc17-460b-909b-f44797e55222"
+                  LastKnownName="创建工作线程"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="cb9f763a-dc17-460b-909b-f44797e55222"
+            name="创建工作线程"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="42dc8f41-3b88-4c05-9bb3-b5c3c2b5fae1"
+                isLeaf="false">
+                <acceptEventActionMoniker
+                  Id="ed37da4a-25ce-4a56-9c1a-c6cda8fc0044"
+                  LastKnownName="等待工作线程开始工作"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="8c8c318d-90e9-4e37-a3ef-26ff71f50f88"
+            name="锁住工作线程唤醒互斥量"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="9f160af4-29a8-48b5-8bb0-978741a0de11"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="0993e6d1-610b-4a88-b538-f8037bcc9d7f"
+                  LastKnownName="设置目标线程数=当前-1"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <acceptEventAction
+            Id="ed37da4a-25ce-4a56-9c1a-c6cda8fc0044"
+            name="等待工作线程开始工作"
+            isLeaf="false"
+            isUnmarshall="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="089777c8-ef57-412e-9ec5-35eeb574daf4"
+                isLeaf="false">
+                <mergeNodeMoniker
+                  Id="cef77726-b0be-447c-8e37-da79eed3860d"
+                  LastKnownName="Merge2"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </acceptEventAction>
+          <decisionNode
+            Id="218bb3b7-3822-494f-98ec-15e13c4a1dbf"
+            name="Decision2"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="841f81de-8a8a-4ff6-9275-f6d7bdc11db1"
+                name="有变化"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="77dd663d-21a7-4111-8552-f5056aa753b8"
+                  LastKnownName="判断增加/减少"
+                  LastKnownLocation="ModelingProject1.uml" />
+                <description>111</description>
+              </controlFlow>
+              <controlFlow
+                Id="7d802f96-9983-4b7f-8416-16d91cafaa8e"
+                isLeaf="false">
+                <mergeNodeMoniker
+                  Id="e9636ced-f8e1-4b64-bf1c-266e1ee93783"
+                  LastKnownName="Merge1"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <initialNode
+            Id="aef3fe0d-9b3d-4197-94f6-0285b6897a84"
+            name="Initial1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="384cc1a2-23f2-460a-bbe7-464de71dbb40"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="953dc454-172d-4d5e-9822-1094a97dd00c"
+                  LastKnownName="调整大小"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <activityFinalNode
+            Id="7bfa1e92-198f-49a2-8c91-a15b90bd27ad"
+            name="ActivityFinal1"
+            isLeaf="false" />
+          <opaqueAction
+            Id="68cc6969-59f3-4bac-88ec-410a168e8af0"
+            name="更多？"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="22c9cbb2-168b-4162-af7e-21f8b1cdbe7a"
+                isLeaf="false">
+                <decisionNodeMoniker
+                  Id="69ec58ac-ae90-4630-9260-85da4cf85cd2"
+                  LastKnownName="Decision3"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <decisionNode
+            Id="69ec58ac-ae90-4630-9260-85da4cf85cd2"
+            name="Decision3"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="775d07f3-fff8-430d-b1bf-3ba0db438e2f"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="83ea7d85-a1ed-4743-9c91-89b2e1706dbe"
+                  LastKnownName="锁住工作线程唤醒互斥量"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="4af11be0-1469-41e3-bfe7-454ef03a28d6"
+                isLeaf="false">
+                <mergeNodeMoniker
+                  Id="e9636ced-f8e1-4b64-bf1c-266e1ee93783"
+                  LastKnownName="Merge1"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction
+            Id="f48dfa8a-3afa-4c2b-b65a-b7f6b0262e6c"
+            name="更少？"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="27ef6f2e-2c9a-4f3b-a7b4-3936049a7432"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="8c8c318d-90e9-4e37-a3ef-26ff71f50f88"
+                  LastKnownName="锁住工作线程唤醒互斥量"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="0993e6d1-610b-4a88-b538-f8037bcc9d7f"
+            name="设置目标线程数=当前-1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="354fba94-224d-465c-8440-a953988008eb"
+                isLeaf="false">
+                <sendSignalActionMoniker
+                  Id="8a9bf637-e65b-4e9b-bf07-315d716bc082"
+                  LastKnownName="通知工作线程"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <sendSignalAction
+            Id="8a9bf637-e65b-4e9b-bf07-315d716bc082"
+            name="通知工作线程"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="7ca13a57-ae24-472d-aa3f-1c8d14037219"
+                isLeaf="false">
+                <acceptEventActionMoniker
+                  Id="38453a80-0f9e-4be8-ad87-ed1ad713daa4"
+                  LastKnownName="等待线程退出"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </sendSignalAction>
+          <acceptEventAction
+            Id="38453a80-0f9e-4be8-ad87-ed1ad713daa4"
+            name="等待线程退出"
+            isLeaf="false"
+            isUnmarshall="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="d2d5849a-98d7-4958-b51a-2e603fd1e159"
+                isLeaf="false">
+                <mergeNodeMoniker
+                  Id="e3622dbc-d7e6-430c-9d68-b1eab006e4b6"
+                  LastKnownName="Merge21"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </acceptEventAction>
+          <mergeNode
+            Id="e9636ced-f8e1-4b64-bf1c-266e1ee93783"
+            name="Merge1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="c8bfa0a8-76fd-4824-8e55-fff109ffb241"
+                isLeaf="false">
+                <activityFinalNodeMoniker
+                  Id="7bfa1e92-198f-49a2-8c91-a15b90bd27ad"
+                  LastKnownName="ActivityFinal1"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </mergeNode>
+          <mergeNode
+            Id="cef77726-b0be-447c-8e37-da79eed3860d"
+            name="Merge2"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="75e90394-0b2d-42dd-9467-093da8076407"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="68cc6969-59f3-4bac-88ec-410a168e8af0"
+                  LastKnownName="更多？"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </mergeNode>
+          <mergeNode
+            Id="e3622dbc-d7e6-430c-9d68-b1eab006e4b6"
+            name="Merge21"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="43081d3c-1ca5-4e8e-882c-d4daa8dac0b0"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="f48dfa8a-3afa-4c2b-b65a-b7f6b0262e6c"
+                  LastKnownName="更少？"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </mergeNode>
         </nodes>
       </activity>
     </packageHasNamedElement>

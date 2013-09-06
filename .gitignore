@@ -44,6 +44,7 @@ _ReSharper*/
 
 #Project files
 [Bb]uild/
+*.*diagram*
 
 #Subversion files
 .svn
@@ -63,3 +64,11 @@ packages/
 
 #Test files
 *.testsettings
+*.krn.ctl
+*.uml
+*.modelproj
+*.uml
+*.vsp
+*.app.ctl
+*.vsmdi
+*.psess
